@@ -1,0 +1,71 @@
+1. создаем папку проекта       (DB&Audit_site_project)
+2.устанавливаяем Django в папку проекта (DB&Audit_site_project)
+3. pip3 list  - проверяем установленную версию Django
+4. запускаем проект из терминала в PyCharm -  django-admin startproject audit_site_1
+                                                        (audit_site_1 - название нового проекта)
+5. создаем приложение в папке проекта (audit_site_1, в которой лежит файл manage.py)
+                   python3 manage.py startapp employee_app
+6. регистрируем приложение в фаиле settings.py в папке audit_site_1
+                    INSTALLED_APPS = [
+                        'django.contrib.admin',
+                        'django.contrib.auth',
+                        'django.contrib.contenttypes',
+                        'django.contrib.sessions',
+                        'django.contrib.messages',
+                        'django.contrib.staticfiles',
+                        'employee_app.apps.EmployeeAppConfig', # для приложения employee_app (путь берем
+                  из фаила apps.py в папке приложения:
+                             class EmployeeAppConfig(AppConfig):
+                                default_auto_field = 'django.db.models.BigAutoField'
+                                name = 'employee_app'
+
+                        'cocktails_app.apps.CocktailsAppConfig', # для приложения cocktails_app
+                    ]
+7. Создаем контролеры в папке каждого приложения в файле views.py и прописываем путь в
+    файле urls.py в папке проекта 'audit_site_1',
+    назначаем корневой папкой основную папку 'audit_site_1'(правый клик на папке и выбираем из списка)
+8. Путь: path('employee_app/', include('employee_app.urls'), прописываем в файле urls.py папки proekta "audit_site_1".
+      Файл urls.py создаем в папке приложения и прописываем:
+  urlpatterns = [
+    path('', index),
+    ]
+9. Для каждого приложения создаем urls.py в его папке по примеру выше.
+
+
+                        Работа с ORM(Object Related Mapping) черeз Shell:
+                        ##############
+python3 manage.py shell                      #импортируем в терминал модель"Employee" из  файла models.py папки employee_app
+
+from employee_app.models import Employee      #импортируем в терминал модель"Employee" из  файла models.py папки employee_app
+
+Employee(first_name='firstname_1', last_name='lastname_1')  # вызываем конструктор класса Employee  и присваиваем
+        переменным класса значения.
+employee_1=_  # с помощью псевдопеременной "—" присваиваем новому классу'employee_1' значемия вышеописанных переменных
+
+
+    ############## работа с CRUD (Crteate Read Update Delete)  ##########
+         Crteate - есть 3 варианта:
+  1. Employee(first_name='firstname_1', last_name='lastname_1')  # вызываем конструктор класса Employee  и присваиваем
+        переменным класса значения.
+  employee_1=_  # с помощью псевдопеременной "—" присваиваем новому классу'employee_1' значемия вышеописанных переменных
+  далее инициализируем все переменные класса
+  сохраняем employee_1.save()
+
+  2. Создаем сначала объект:
+  cocktail_1=Cocktail()
+    далее каждую переменную класс иницицализируем:
+    cocktail_1.name='cocktail#1'
+    cocktail.description="some description of the cocktail#1"
+    и так продолжаем для каждой переменной.
+    после инициализации всех переменных класса, выполняем команду cocktail_1.save()
+
+    3.Создаем класс методом .create()
+    cocktail_4=Cocktail.objects.create(cocktail_name='cocktail#4')
+    можно в скобках инициализировать сразу все поля класса
+    в этом случае метод .save() использовать не нужно.
+
+         Read
+         1.metod filter:  Cocktail.objects.filter(name='Amsterdam')
+         2. metod get:  Cocktail.objects.get(bar_price=700);   Cocktail.objects.get(pk=9)
+
+
