@@ -1,6 +1,7 @@
 # my_first_jango_project
  Make my first project on Django
 
+
 Команды терминала:
   pip3 list
   python3                     #откывает терминал под Python
